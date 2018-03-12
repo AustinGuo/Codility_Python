@@ -12,7 +12,7 @@ def solution(A):
 
     F = 0
     i = 1
-    while (i*i) <= N:
+    while ((i-1)*(i-1)) < N:
         Fa = 0
         L = i
         for p in P:
