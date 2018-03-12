@@ -6,16 +6,9 @@ def solution(A):
     N = len(A)
     P = [0] * N
 
-    if N == 1:
-        return 1
-
-    if A[0] > A[1]:
-        P[0] = 1
     for i in range(1, N-1):
         if A[i] > A[i-1] and A[i] > A[i+1]:
             P[i] = 1
-    if A[N-1] > A[N-2]:
-        P[N-1] = 1
 
     F = 0
     i = 1
