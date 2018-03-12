@@ -12,13 +12,13 @@ def solution(A):
 
     F = 0
     i = 1
-    while (i*i) <= N+1:
+    while (i*i) <= N:
         Fa = 0
         L = i
         for p in P:
             if p == 1 and L >= i:
                 Fa += 1
-                L == 0
+                L = 0
             if Fa == i:
                 break;
             L += 1
