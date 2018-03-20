@@ -16,12 +16,12 @@ def getPrimeFactor(n):
     
 def getNumSemi(n):
     F = getPrimeFactor(n)
-    NS = [0] * (n+1)
+    NS = [0] * (n+2)
     c = 0
     for i in range(n+1):
         if F[i] != 0 and F[int(i/F[i])] == 0:
             c += 1
-            NS[i] = c 
+        NS[i+1] = c
     return NS
     
 def solution(N, P, Q):
@@ -30,6 +30,6 @@ def solution(N, P, Q):
     R = [0] * M
     NS = getNumSemi(N)
     for i in range(M):
-        R[i] = NS[Q[i]] - NS[P[i-i]]
+        R[i] = NS[Q[i]+1] - NS[P[i]]
 
     return R
