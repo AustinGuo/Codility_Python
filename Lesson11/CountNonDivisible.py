@@ -14,7 +14,7 @@ def getPrimeFactor(n):
                 a += i
         i += 1
     return F
-
+    
 # Get number count list
 def getNumList(A):
     N = len(A)*2
@@ -26,51 +26,30 @@ def getNumList(A):
 def solution(A):
     # write your code in Python 3.6
     N = len(A)
-    M = N*2
-    F = getPrimeFactor(M)
+    M = max(A)
     C = getNumList(A)
+    F = getPrimeFactor(M)
+    
+    divisors = {}
+    for element in A:
+        divisors[element] = [1]
+    
+    divisor = 2
+    while (divisor*divisor) <= M:
+        multiple = divisor
+        while multiple <= M:
+            if C[multiple] != 0 and not divisor in divisors[multiple]:
+                divisors[multiple].append(divisor)
+            multiple += divisor
+        divisor += 1
+        
     R = [N] * N
     for i in range(N):
-        Flag = [True] * (M+1)
-        R[i] -= C[1]
-        if A[i] == 1:
-            continue
-        R[i] -= C[A[i]]
-        if F[A[i]]:
-            continue
-        x = 2
-        while x*x <= A[i]:
-            if not F[x] or A[i] % x != 0:
-                x += 1
-                continue
-            y = int(A[i]/x)
-            if x >= y:
-                if y == x and Flag[y]:
+        for div in divisors[A[i]]:
+            y = int(A[i]/div)
+            if y >= div:
+                R[i] -= C[div]
+                if y > div:
                     R[i] -= C[y]
-                    Flag[y] = False
-                break
-            if Flag[x]:
-                R[i] -= C[x]
-                Flag[x] = False
-            if Flag[y]:
-                R[i] -= C[y]
-                Flag[y] = False
-            z = x * x
-            while z <= A[i]:
-                if A[i] % z == 0:
-                    y = int(A[i]/z)
-                    if z >= y:
-                        if y == z and Flag[y]:
-                            R[i] -= C[y]
-                            Flag[y] = False
-                        break
-                    if Flag[z]:
-                        R[i] -= C[z]
-                        Flag[z] = False
-                    if Flag[y]:
-                        R[i] -= C[y]
-                        Flag[y] = False
-                z += x
-            x += 1
-       
+    
     return R
