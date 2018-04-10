@@ -23,9 +23,9 @@ def solution(A):
         posB = 0
         for num in dis:
             posA += num
-            if posB < posA:
+            if posB <= posA:
                 posB += block
-                if posB < posA:
+                if posB <= posA:
                     break
         if posB == N:
             return i
