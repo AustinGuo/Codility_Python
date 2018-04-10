@@ -5,7 +5,7 @@ def solution(A):
     # write your code in Python 3.6
     N = len(A)
     dis = []
-    count = 0
+    count = 1
 
     # Get next peak distance
     for i in range(1, N-1):
@@ -15,16 +15,19 @@ def solution(A):
         count += 1
 
     maxR = len(dis)
-    for i in range(maxR, 1, -1):
+    for i in range(maxR, 0, -1):
+        if N % i != 0:
+            continue
+        block = int(N/i)
         posA = 0
         posB = 0
         for num in dis:
             posA += num
             if posB < posA:
-                posB += i
+                posB += block
                 if posB < posA:
                     break
-        else:
+        if posB == N:
             return i
 
     return 0
