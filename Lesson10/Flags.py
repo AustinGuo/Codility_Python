@@ -7,6 +7,7 @@ def solution(A):
     dis = []
     count = 0
 
+    # Get next peak distance
     for i in range(1, N-1):
         if A[i] > A[i-1] and A[i] > A[i+1]:
             dis.append(count)
@@ -18,6 +19,8 @@ def solution(A):
     while ((i-1)*(i-1)) < N:
         Fa = 0
         L = i
+        
+        # Add next peak distance and if more than "i" then count add 1
         for p in dis:
             L += p
             if L >= i:
