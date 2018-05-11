@@ -1,0 +1,19 @@
+# you can write to stdout for debugging purposes, e.g.
+# print("this is a debug message")
+
+def solution(A):
+    # write your code in Python 3.6
+    N = len(A)
+        
+    maxSlice = 0
+    maxEnd = -A[1]
+    minNum = A[1]
+    for i in range(1, N-1):
+        if A[i] < minNum:
+            maxEnd += minNum
+            minNum = A[i]
+            maxEnd -= minNum
+        maxEnd = max(0, maxEnd+A[i])
+        maxSlice = max(maxEnd, maxSlice)
+        
+    return maxSlice
