@@ -3,20 +3,26 @@
 
 def solution(H):
     # write your code in Python 3.6
-    stone = [0]*len(H)
-    stone_count = 0
-    for i, a in enumerate(H):
-        if stone[i] == H[i]:
-            continue
-        stone_height = a
-        stone[i] = stone_height
-        stone_count += 1
-        for j in range(i+1, len(H)):
-            if stone_height > H[j]:
-                if stone[j] == H[j]:
+    stone_stake = []
+    stone_count = 1
+    for i in range(1, len(H)):
+        if H[i-1] > H[i]:
+            while stone_stake:
+                if stone_stake[-1] > H[i]:
+                    stone_stake.pop()
+                    stone_count += 1
+                elif stone_stake[-1] < H[i]:
+                    stone_count += 1
                     break
+                elif stone_stake[-1] == H[i]:
+                    stone_stake.pop()
+                    stone_count += 1
+                    break
+            else:
                 stone_count += 1
-                stone_height = H[j]
-            stone[j] = stone_height
+        elif H[i-1] < H[i]:
+            stone_stake.append(H[i-1])
+    return stone_count + len(stone_stake)
 
-    return stone_count
+H = [8,8,5,7,9,8,7,4,8]
+print(solution(H))
